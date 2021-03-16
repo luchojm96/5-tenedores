@@ -2,34 +2,46 @@ import React, { useEffect, useRef, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Button } from 'react-native-elements';
 import Toast from 'react-native-easy-toast';
+import * as firebase from 'firebase';
 
-import { firebase } from '../../utils/firebase';
 import Loading from '../../components/Loading';
 import InfoUser from '../../components/Account/InfoUser';
+import AccountOptions from '../../components/Account/AccountOptions';
 
 export default function UserLogged() {
-  const toastRef = useRef();
+  const [userInfo, setUserInfo] = useState(null);
   const [loading, setLoading] = useState(false);
   const [loadingText, setLoadingText] = useState('');
-  const [userInfo, setUserInfo] = useState({});
+  const toastRef = useRef();
 
   useEffect(() => {
     (async () => {
-      const user = await firebase.auth().currentUser;
+      const user = await firebase.default.auth().currentUser;
       setUserInfo(user);
-      console.log(InfoUser);
     })();
   }, []);
 
   return (
     <View style={styles.viewUserInfo}>
-      {userInfo && <InfoUser userInfo={userInfo} />}
-      <Text>Account Options...</Text>
+      {userInfo && (
+        <InfoUser
+          userInfo={userInfo}
+          toastRef={toastRef}
+          setLoading={setLoading}
+          setLoadingText={setLoadingText}
+        />
+      )}
+      <AccountOptions
+        userInfo={userInfo}
+        toastRef={toastRef}
+        setLoading={setLoading}
+        setLoadingText={setLoadingText}
+      />
       <Button
         title="Cerrar Sesión"
         buttonStyle={styles.btnLogout}
         titleStyle={styles.btnLogoutText}
-        onPress={() => firebase.auth().signOut()}
+        onPress={() => firebase.defualt.auth().signOut()}
       />
       <Toast ref={toastRef} position="center" opacity={0.9} />
       <Loading isVisible={loading} text={loadingText} />
