@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import * as firebase from 'firebase';
+import firebase from 'firebase/app';
 
 import UserGuest from './UserGuest';
 import UserLogged from './UserLogged';
@@ -9,7 +9,7 @@ export default function Account() {
   const [logged, setLogged] = useState(null);
 
   useEffect(() => {
-    firebase.default.auth().onAuthStateChanged((user) => {
+    firebase.auth().onAuthStateChanged((user) => {
       !user ? setLogged(false) : setLogged(true);
     });
   }, []);

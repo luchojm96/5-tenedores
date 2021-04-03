@@ -4,7 +4,7 @@ import { Button, Icon, Input } from 'react-native-elements';
 import { isEmpty } from 'lodash';
 import { useNavigation } from '@react-navigation/native';
 
-import * as firebase from 'firebase';
+import firebase from 'firebase/app';
 import { validateEmail } from '../../utils/validations';
 import Loading from '../Loading';
 
@@ -47,7 +47,7 @@ export default function LoginForm(props) {
       toastRef.current.show('El email introducido no es válido', 3000);
     } else {
       setLoading(true);
-      firebase.default
+      firebase
         .auth()
         .signInWithEmailAndPassword(formData.email, formData.password)
         .then((response) => {

@@ -4,7 +4,7 @@ import { Button, Icon, Input } from 'react-native-elements';
 import { size, isEmpty } from 'lodash';
 import { useNavigation } from '@react-navigation/native';
 
-import * as firebase from 'firebase';
+import firebase from 'firebase/app';
 import { validateEmail } from '../../utils/validations';
 import Loading from '../Loading';
 
@@ -38,7 +38,7 @@ export default function RegisterForm(props) {
       );
     } else {
       setLoading(true);
-      firebase.default
+      firebase
         .auth()
         .createUserWithEmailAndPassword(formData.email, formData.password)
         .then((response) => {

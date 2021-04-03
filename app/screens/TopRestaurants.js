@@ -1,14 +1,12 @@
-import React, { Component } from 'react';
-import { Text, StyleSheet, View } from 'react-native';
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 
-export default class TopRestaurants extends Component {
-  render() {
-    return (
-      <View>
-        <Text> Top Restaurants </Text>
-      </View>
-    );
-  }
+export default function TopRestaurants() {
+  return (
+    <View>
+      <Text>TopRestaurants</Text>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({});
